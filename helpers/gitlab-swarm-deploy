@@ -99,8 +99,8 @@ if [ ! -f ./deployment/.env ]; then
   exit 97
 fi
 
-# Setting repository
-export REPOSITORY=${REPOSITORY_URL:-$REPOSITORY_BASE}
+# Setting repository (only if not already set)
+export REPOSITORY=${REPOSITORY:-${REPOSITORY_URL:-$REPOSITORY_BASE}}
 
 # Run deployment script
 msg "💫  Calling deployment script from https://raw.githubusercontent.com/sgsottbauer/ops/refs/heads/main/bin/deploy"
