@@ -103,7 +103,8 @@ fi
 export REPOSITORY=${REPOSITORY_URL:-$REPOSITORY_BASE}
 
 # Run deployment script
-msg "💫  Calling deployment script"
+msg "💫  Calling deployment script from https://raw.githubusercontent.com/sgsottbauer/ops/refs/heads/main/bin/deploy"
+
 # Pass all argument except first
 curl -fsSL "https://raw.githubusercontent.com/sgsottbauer/ops/refs/heads/main/bin/deploy" | /bin/bash -s -- ${@:2}
 
