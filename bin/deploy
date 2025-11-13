@@ -139,6 +139,12 @@ mkdir -p "${WORKING_DIR}/__keys"
 echo "🔑  Writing SSH key to temporary file..."
 echo $SWARM_CONFIG | jq -r '.ssh_private_key' > "${WORKING_DIR}/__keys/swarm"
 
+# Prepare Infisical environment-specific variables
+ENV_UPPER=$(echo "${ENVIRONMENT}" | tr '[:lower:]' '[:upper:]')
+INFISICAL_ENABLED_VAR="${ENV_UPPER}_INFISICAL_ENABLED"
+INFISICAL_TOKEN_VAR="${ENV_UPPER}_INFISICAL_TOKEN"
+INFISICAL_PATH_VAR="${ENV_UPPER}_INFISICAL_PATH"
+
 # Run swarm deployment
 export DEPLOY_TAG=${DOCKER_TAG:-$LATEST_TAG}
 msg "🚀  Deploying version $GREEN$DEPLOY_TAG$NC to swarm..."
@@ -163,9 +169,9 @@ docker run --rm \
   -e DOCKER_LOGIN_USERNAME \
   -e DOCKER_LOGIN_PASSWORD \
   -e DOCKER_LOGIN_REGISTRY \
-  -e INFISICAL_ENABLED=${DEVELOPMENT_INFISICAL_ENABLED} \
-  -e INFISICAL_TOKEN=${DEVELOPMENT_INFISICAL_TOKEN} \
-  -e INFISICAL_PATH=${DEVELOPMENT_INFISICAL_PATH} \
+  -e INFISICAL_ENABLED=${!INFISICAL_ENABLED_VAR} \
+  -e INFISICAL_TOKEN=${!INFISICAL_TOKEN_VAR} \
+  -e INFISICAL_PATH=${!INFISICAL_PATH_VAR} \
   -e INFISICAL_API_URL=${INFISICAL_API_URL} \
   -e APPLICATION=${APPLICATION_NAME} \
   -e ENVIRONMENT=${ENVIRONMENT:-unspecified} \
