@@ -74,7 +74,7 @@ SYSTEM_NAME=$(echo $SWARM_CONFIG | jq -r '.system | select (.!=null)')
 SYSTEM_NAME=${SYSTEM_NAME:-web}
 
 DOMAIN=$(echo $SWARM_CONFIG | jq -r '.domain | select (.!=null)')
-DOMAIN=${$DOMAIN:-notset}
+DOMAIN=${DOMAIN:-not-set}
 
 SWARM_ENVIRONMENT=$(echo $SWARM_CONFIG | jq -r '.environment | select (.!=null)')
 ENVIRONMENT=${SWARM_ENVIRONMENT:-$ENVIRONMENT}
