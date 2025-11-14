@@ -179,7 +179,7 @@ docker run --rm \
   -e ENVIRONMENT=${ENVIRONMENT:-unspecified} \
   -e ENVIRONMENT_NAME=$(echo ${ENVIRONMENT:0:1} | tr '[:lower:]' '[:upper:]')${ENVIRONMENT:1} \
   -e SYSTEM=${SYSTEM_NAME} \
-  -e DOMAIN=${DOMAIN}
+  -e DOMAIN=${DOMAIN} \
   docker:cli sh -c "
     # Prepare shell
     set -Eeo pipefail
