@@ -73,6 +73,9 @@ REMOTE_PORT=${REMOTE_PORT:-22}
 SYSTEM_NAME=$(echo $SWARM_CONFIG | jq -r '.system | select (.!=null)')
 SYSTEM_NAME=${SYSTEM_NAME:-web}
 
+DOMAIN=$(echo $SWARM_CONFIG | jq -r '.domain | select (.!=null)')
+DOMAIN=${$DOMAIN:-not-set}
+
 SWARM_ENVIRONMENT=$(echo $SWARM_CONFIG | jq -r '.environment | select (.!=null)')
 ENVIRONMENT=${SWARM_ENVIRONMENT:-$ENVIRONMENT}
 
@@ -200,6 +203,7 @@ docker run --rm \
   -e ENVIRONMENT=${ENVIRONMENT:-unspecified} \
   -e ENVIRONMENT_NAME=$(echo ${ENVIRONMENT:0:1} | tr '[:lower:]' '[:upper:]')${ENVIRONMENT:1} \
   -e SYSTEM=${SYSTEM_NAME} \
+  -e DOMAIN=${DOMAIN}
   docker:cli sh -c "
     # Prepare shell
     set -Eeo pipefail
